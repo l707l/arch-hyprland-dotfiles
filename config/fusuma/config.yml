@@ -1,0 +1,38 @@
+# =============================================================================
+# FUSUMA CONFIGURATION - GESTOS MULTITÁCTILES
+# Compatible con Niri y Hyprland
+# =============================================================================
+
+swipe:
+  3:
+    up:
+      command: 'if [ "$XDG_CURRENT_DESKTOP" = "niri" ] || [ -n "$NIRI_SOCKET" ]; then niri msg action toggle-overview; else hyprctl dispatch fullscreen 1; fi'
+    down:
+      command: 'if [ "$XDG_CURRENT_DESKTOP" = "niri" ] || [ -n "$NIRI_SOCKET" ]; then niri msg action close-window; else hyprctl dispatch killactive; fi'
+    left:
+      command: 'if [ "$XDG_CURRENT_DESKTOP" = "niri" ] || [ -n "$NIRI_SOCKET" ]; then niri msg action focus-column-left; else hyprctl dispatch movefocus l; fi'
+    right:
+      command: 'if [ "$XDG_CURRENT_DESKTOP" = "niri" ] || [ -n "$NIRI_SOCKET" ]; then niri msg action focus-column-right; else hyprctl dispatch movefocus r; fi'
+  4:
+    up:
+      command: 'if [ "$XDG_CURRENT_DESKTOP" = "niri" ] || [ -n "$NIRI_SOCKET" ]; then niri msg action fullscreen-window; else hyprctl dispatch fullscreen 0; fi'
+    down:
+      command: 'if [ "$XDG_CURRENT_DESKTOP" = "niri" ] || [ -n "$NIRI_SOCKET" ]; then niri msg action toggle-window-floating; else hyprctl dispatch togglefloating; fi'
+    left:
+      command: 'if [ "$XDG_CURRENT_DESKTOP" = "niri" ] || [ -n "$NIRI_SOCKET" ]; then niri msg action focus-workspace-up; else hyprctl dispatch workspace e-1; fi'
+    right:
+      command: 'if [ "$XDG_CURRENT_DESKTOP" = "niri" ] || [ -n "$NIRI_SOCKET" ]; then niri msg action focus-workspace-down; else hyprctl dispatch workspace e+1; fi'
+
+pinch:
+  in:
+    command: 'if [ "$XDG_CURRENT_DESKTOP" = "niri" ] || [ -n "$NIRI_SOCKET" ]; then niri msg action switch-preset-column-width; fi'
+  out:
+    command: 'if [ "$XDG_CURRENT_DESKTOP" = "niri" ] || [ -n "$NIRI_SOCKET" ]; then niri msg action maximize-column; fi'
+
+threshold:
+  swipe: 0.4
+  pinch: 0.4
+
+interval:
+  swipe: 0.8
+  pinch: 0.8

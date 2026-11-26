@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+export QML_XHR_ALLOW_FILE_READ=1
+
+SHELL_QML="$HOME/.local/share/serpantinum/CircularRotatingLauncher.qml"
+APPS_JSON="$HOME/.local/share/serpantinum/apps.json"
+GEN_SCRIPT="$HOME/.local/share/serpantinum/generate_apps.py"
+
+# Regenerate apps.json if missing
+if [ ! -f "$APPS_JSON" ] && [ -f "$GEN_SCRIPT" ]; then
+    python3 "$GEN_SCRIPT" >/dev/null 2>&1
+fi
+
+is_running() {
+    quickshell -p "$SHELL_QML" list 2>/dev/null | grep -q "Process ID:"
+}
+
+start_daemon() {
+    if ! is_running; then
+        quickshell -p "$SHELL_QML" -d >/dev/null 2>&1
+        for i in {1..30}; do
+            if is_running; then
+                break
+            fi
+            sleep 0.05
+        done
+    fi
+}
+
+case "$1" in
+    --daemon)
+        start_daemon
+        ;;
+    --kill)
+        quickshell -p "$SHELL_QML" kill >/dev/null 2>&1
+        ;;
+    --reload-apps)
+        python3 "$GEN_SCRIPT" >/dev/null 2>&1
+        ;;
+    *)
+        start_daemon
+        quickshell -p "$SHELL_QML" ipc call launcher toggle >/dev/null 2>&1
+        ;;
+esac

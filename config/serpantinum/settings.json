@@ -1,0 +1,14 @@
+{
+  "general": {
+    "language": "es"
+  },
+  "bar": {
+    "autohide": true
+  },
+  "launcher": {
+    "position": "center",
+    "width": 640,
+    "itemCount": 7,
+    "smartRanking": true
+  }
+}

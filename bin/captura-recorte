@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+mkdir -p "$HOME/Pictures/Screenshots"
+OUTPUT="$HOME/Pictures/Screenshots/captura_$(date +%Y%m%d_%H%M%S).png"
+LATEST="$HOME/captura.png"
+
+# Select area and capture
+GEOM=$(slurp 2>/dev/null)
+if [ -n "$GEOM" ]; then
+    grim -g "$GEOM" "$OUTPUT"
+    cp "$OUTPUT" "$LATEST"
+    wl-copy --type image/png < "$OUTPUT" 2>/dev/null || true
+    echo "Captura guardada en: $LATEST"
+fi

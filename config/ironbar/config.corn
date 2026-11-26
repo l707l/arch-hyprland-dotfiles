@@ -1,0 +1,59 @@
+{
+  name = "top"
+  position = "top"
+  height = 20
+
+  start = [
+    {
+      type = "workspaces"
+      all_monitors = false
+    }
+    {
+      type = "focused"
+      show_icon = true
+      show_title = false
+    }
+  ]
+
+  end = [
+    {
+      type = "tray"
+      icon_size = 14
+    }
+    {
+      type = "custom"
+      bar = [
+        {
+          type = "button"
+          name = "wifi"
+          label = "󰤨"
+          on_click = "!kitty -e iwctl"
+        }
+        {
+          type = "button"
+          name = "bluetooth"
+          label = "󰂯"
+          on_click = "!blueman-manager"
+        }
+      ]
+    }
+    {
+      type = "battery"
+      format = "{percentage}%"
+    }
+    {
+      type = "custom"
+      bar = [
+        {
+          type = "label"
+          name = "fan"
+          label = "󰈐 {{4000:cat /sys/class/hwmon/hwmon3/fan1_input}}"
+        }
+      ]
+    }
+    {
+      type = "clock"
+      format = "%H:%M"
+    }
+  ]
+}
